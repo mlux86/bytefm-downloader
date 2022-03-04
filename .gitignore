@@ -1,0 +1,7 @@
+config.yml
+__pycache__
+.idea
+*.log
+*.mp3
+*.db
+

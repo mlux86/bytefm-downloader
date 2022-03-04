@@ -1,0 +1,6 @@
+username: your_username
+password: your_password
+directory: /target/directory
+shows:
+  - show_1
+  - show_2
