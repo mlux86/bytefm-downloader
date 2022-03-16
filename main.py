@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 from os.path import isdir
+from urllib.parse import quote
 
 import yaml
 from selenium import webdriver
@@ -94,7 +95,7 @@ try:
             logging.info('downloading: %s', url)
             file_name = file_name_from_url(url)
             mp3_path = f'{config["directory"]}/{file_name}'
-            download_file(url, mp3_path, driver.get_cookies())
+            download_file(quote(url, safe='.:/'), mp3_path, driver.get_cookies())
             db.log_download(show, url)
 except Exception as e:
     logging.exception('An error occurred.', exc_info=e)

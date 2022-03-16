@@ -1,6 +1,6 @@
 import json
 import os
-from urllib.parse import urlparse
+from urllib.parse import urlparse, quote
 
 import urllib3
 
