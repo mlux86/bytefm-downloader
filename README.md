@@ -13,7 +13,7 @@ Google Chrome is used as a selenium webdriver. [Find out how to install the webd
 Furthermore, install the required Python 3 dependencies:
 
 ``` 
-$ pip3 install urllib3 selenium
+$ pip3 install urllib3 selenium pyyaml
 ``` 
 
 ### Creating a configuration file

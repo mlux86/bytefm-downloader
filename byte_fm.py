@@ -9,29 +9,20 @@ from download import get_json
 
 class ByteFmEpisode:
     mp3_api_call_url = 'return window.performance.getEntries().map(x => x.name)' \
-                       '.filter(x => x.includes(\'api/v1/player/archiv/?sendung=\'))'
+                       '.filter(x => x.includes(\'/api/v1/broadcasts/\'))'
+    mp3_base_path = 'https://archiv.byte.fm'
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
         time.sleep(2)
 
-    def get_mp3_url(self):
-        url = self.driver.execute_script(self.mp3_api_call_url)
-        json = get_json(url, self.driver.get_cookies())
-        url = json['stream']
-        return url
-
     def get_mp3_urls(self):
-        part2_link = self.driver.find_elements(By.LINK_TEXT, 'Teil 2')
-        if len(part2_link) == 1:
-            part2_link[0].click()
-            time.sleep(2)
         api_urls = self.driver.execute_script(self.mp3_api_call_url)
+        if len(api_urls) > 1:
+            raise Exception('Found more than one suitable API URLs')
         result = []
-        for api_url in api_urls:
-            json = get_json(api_url, self.driver.get_cookies())
-            result.append(json['stream'])
-        return result
+        json = get_json(api_urls[0], self.driver.get_cookies())
+        return [*map(lambda path: self.mp3_base_path + path, json['recordings'])]
 
 
 class ByteFmShow:
@@ -45,7 +36,7 @@ class ByteFmShow:
 
     def get_episodes_urls(self):
         links: list[WebElement] = self.driver.find_elements(By.CSS_SELECTOR, 'div.show-list-item__play a')
-        return [*map(lambda elem:  elem.get_attribute('href'), links)]
+        return [*map(lambda elem: elem.get_attribute('href'), links)]
 
 
 class ByteFm:
