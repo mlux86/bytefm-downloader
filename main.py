@@ -6,7 +6,7 @@ from urllib.parse import quote
 
 import yaml
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 
 from byte_fm import ByteFm
 from download import file_name_from_url, download_file
@@ -61,11 +61,11 @@ if not isdir(config['directory']):
 
 # configure webdriver
 
-chrome_options = Options()
-chrome_options.add_argument('--window-size=1920,1080')
-chrome_options.add_argument('--headless')
-chrome_options.add_argument(f'user-agent={USER_AGENT}')
-driver = webdriver.Chrome(options=chrome_options)
+opts = Options()
+opts.add_argument('--window-size=1920,1080')
+opts.add_argument('--headless')
+opts.add_argument(f'user-agent={USER_AGENT}')
+driver = webdriver.Firefox(options=opts)
 driver.implicitly_wait(5)
 
 try:
