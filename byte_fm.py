@@ -51,6 +51,7 @@ class ByteFm:
         self.driver.find_element(By.NAME, 'username').send_keys(username)
         self.driver.find_element(By.NAME, 'password').send_keys(password)
         self.driver.find_element(By.CSS_SELECTOR, 'button[type=\'submit\']').click()
+        time.sleep(3)
         return self
 
     def go_to_program(self, show_name):
