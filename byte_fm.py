@@ -22,7 +22,7 @@ class ByteFmEpisode:
             raise Exception('Found more than one suitable API URLs')
         result = []
         json = get_json(api_urls[0], self.driver.get_cookies())
-        return [*map(lambda path: self.mp3_base_path + path, json['recordings'])]
+        return [*map(lambda recording: self.mp3_base_path + recording['url'], json['recordings'])]
 
 
 class ByteFmShow:
